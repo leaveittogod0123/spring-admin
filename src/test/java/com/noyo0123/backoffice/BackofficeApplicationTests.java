@@ -1,10 +1,13 @@
 package com.noyo0123.backoffice;
 
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
-class BackofficeApplicationTests {
+public class BackofficeApplicationTests {
 
     @Test
     void contextLoads() {
