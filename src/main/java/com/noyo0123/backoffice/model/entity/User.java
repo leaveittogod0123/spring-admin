@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data // get set
 @AllArgsConstructor
@@ -33,4 +31,8 @@ public class User { // TBL의 이름과 동일하게
     private LocalDateTime updatedAt;
 
     private String updatedBy;
+
+    // User 입장에서는 1 : orderDetail이 N!
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user") // fetch타입 왜 lazy? 어떤 컬럼과 매핑할건지 mappedBy user는 OrderDetail의 user과 동일해야함.
+    private List<OrderDetail> orderDetailList;
 }
