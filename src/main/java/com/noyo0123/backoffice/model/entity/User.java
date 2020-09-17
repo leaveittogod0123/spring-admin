@@ -20,9 +20,15 @@ public class User { // TBL의 이름과 동일하게
 
     private String account;
 
+    private String password;
+
+    private String status;
+
     private String email;
 
-    private String mobile;
+    private String phoneNumber;
+
+    private LocalDateTime registeredAt;
 
     private LocalDateTime createdAt;
 
@@ -33,6 +39,9 @@ public class User { // TBL의 이름과 동일하게
     private String updatedBy;
 
     // User 입장에서는 1 : orderDetail이 N!
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user") // fetch타입 왜 lazy? 어떤 컬럼과 매핑할건지 mappedBy user는 OrderDetail의 user과 동일해야함.
-    private List<OrderDetail> orderDetailList;
+    // LAZY 타입은 지연로딩!  EAGER = 즉시로딩!
+
+    // LAZY = SELECT * FROM item where id = ?
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user") // fetch타입 왜 lazy? 어떤 컬럼과 매핑할건지 mappedBy user는 OrderDetail의 user과 동일해야함.
+//    private List<OrderDetail> orderDetailList;
 }

@@ -20,30 +20,37 @@ public class UserRepositoryTest extends BackofficeApplicationTests { // 자동�
 
     @Test // 테스트를 하기위해선 이 어노테이션을 붙여줘야해요.
     public void create() {
-        User user = new User();
-        user.setAccount("noyo0125");
-        user.setEmail("noyo0125@gmail.com");
-        user.setMobile("01012341235");
-        user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("noyo0125");
+        String account = "Test-01";
+        String password = "Test-01";
+        String status = "registerd";
+        String email = "Test01@gmail.com";
+        String phoneNumber = "010-1111-2222";
+        LocalDateTime registerdAt = LocalDateTime.now();
+        LocalDateTime createdAt = LocalDateTime.now();
+        String createdBy = "AdminServer";
 
-        User newUser =  userRepository.save(user);
-        System.out.println("newUser: "+ newUser);
+        User user = new User();
+        user.setAccount(account);
+        user.setPassword(password);
+        user.setStatus(status);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setRegisteredAt(registerdAt);
+        user.setCreatedAt(createdAt);
+        user.setCreatedBy(createdBy);
+
+        User newUser = userRepository.save(user);
+
+        Assert.assertNotNull(newUser);
+
     }
 
     @Test
     @Transactional
     public void read() {
-        Optional<User> user = userRepository.findById(4L); // user ID가 long type이라
-          user.ifPresent(selectUser ->{ // 존재하면 동작
-            System.out.println("user: "+ selectUser);
-            selectUser.getOrderDetailList().stream().forEach(detail -> {
-//                System.out.println(detail.getItemId()); // 이거 JPA, lombok toString 에러 나기 때문에 OrderDetail 엔티티에서 @ToString(exclude = "user") 추가해줌 이유는 println때문임.
-                Item item = detail.getItem();
-                System.out.println(item);
-            });
-        });
-
+        String phoneNumber = "010-1111-2221";
+        User user = userRepository.findFirstByPhoneNumberOrderByIdDesc(phoneNumber);
+        Assert.assertNotNull(user);
     }
 
     @Test

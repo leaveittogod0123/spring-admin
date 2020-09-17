@@ -33,7 +33,5 @@ public class ItemRepositoryTest extends BackofficeApplicationTests {
 
         Assert.assertTrue(item.isPresent()); //true
 
-        item.ifPresent(i ->
-                System.out.println(i));
     }
 }
