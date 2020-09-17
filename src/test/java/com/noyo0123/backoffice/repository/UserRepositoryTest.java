@@ -34,7 +34,7 @@ public class UserRepositoryTest extends BackofficeApplicationTests { // 자동�
     @Test
     @Transactional
     public void read() {
-        Optional<User> user = userRepository.findById(4L); // user ID가 long type이라
+        Optional<User> user = userRepository.findByAccount("noyo0125"); // user ID가 long type이라
           user.ifPresent(selectUser ->{ // 존재하면 동작
             System.out.println("user: "+ selectUser);
             selectUser.getOrderDetailList().stream().forEach(detail -> {
