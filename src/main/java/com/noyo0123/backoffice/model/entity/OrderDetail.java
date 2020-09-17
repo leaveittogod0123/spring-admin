@@ -6,11 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-@ToString(exclude = {"user","item"})
+//@ToString(exclude = {"user","item"})
 @NoArgsConstructor
 @Entity // order_detail
 public class OrderDetail {
@@ -20,6 +21,22 @@ public class OrderDetail {
     private Long id;
 
     private LocalDateTime orderAt;
+
+    private String status;
+
+    private LocalDateTime arrivalDate;
+
+    private Integer quantity;
+
+    private BigDecimal totalPrice;
+
+    private LocalDateTime createdAt;
+
+    private String createdBy;
+
+    private LocalDateTime updatedAt;
+
+    private String updatedBy;
 
     // orderDetail 입장에서
     // orderDetail이 N, user가 1
