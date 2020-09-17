@@ -30,8 +30,6 @@ public class User { // TBL의 이름과 동일하게
 
     private LocalDateTime registeredAt;
 
-    private String registeredBy;
-
     private LocalDateTime createdAt;
 
     private String createdBy;
