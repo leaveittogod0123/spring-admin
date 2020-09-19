@@ -1,9 +1,12 @@
 package com.noyo0123.backoffice.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Accessors;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,6 +17,9 @@ import java.util.List;
 @NoArgsConstructor // 기본 생성자 만들어주는 메서드 에러가 나서 넣어줌.
 @Entity // === TBL
 @ToString(exclude = {"orderGroup"})
+@EntityListeners(AuditingEntityListener.class)
+@Builder
+@Accessors(chain = true)
 public class User { // TBL의 이름과 동일하게
 
     @Id // 식별자
@@ -32,12 +38,13 @@ public class User { // TBL의 이름과 동일하게
 
     private LocalDateTime registeredAt;
 
+    @CreatedDate
     private LocalDateTime createdAt;
-
+    @CreatedBy
     private String createdBy;
-
+    @LastModifiedDate
     private LocalDateTime updatedAt;
-
+    @LastModifiedBy
     private String updatedBy;
 
     // User 입장에서는 1 : orderDetail이 N!

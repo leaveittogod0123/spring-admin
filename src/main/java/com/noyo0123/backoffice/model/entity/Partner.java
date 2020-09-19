@@ -1,9 +1,12 @@
 package com.noyo0123.backoffice.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Accessors;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,6 +17,9 @@ import java.util.List;
 @Data
 @Entity
 @ToString(exclude = {"itemList", "category"})
+@EntityListeners(AuditingEntityListener.class)
+@Builder
+@Accessors(chain = true)
 public class Partner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
@@ -27,14 +33,14 @@ public class Partner {
     private String ceoName;
     private LocalDateTime registeredAt;
 
+    @CreatedDate
     private LocalDateTime createdAt;
-
+    @CreatedBy
     private String createdBy;
-
+    @LastModifiedDate
     private LocalDateTime updatedAt;
-
+    @LastModifiedBy
     private String updatedBy;
-
     // Partner N : 1 Category; 카테고리는 하나고 , 각 카테고리마다 여러 파트너 존재할 수 있음.
     @ManyToOne
     private Category category;

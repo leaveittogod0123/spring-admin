@@ -1,9 +1,12 @@
 package com.noyo0123.backoffice.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Accessors;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,6 +17,9 @@ import java.util.List;
 @NoArgsConstructor // 인자 없는 생성자
 @Entity //테이블
 @ToString(exclude = {"orderDetailList", "partner"})
+@EntityListeners(AuditingEntityListener.class)
+@Builder
+@Accessors(chain = true)
 public class Item {
 
     @Id // 유일키
@@ -34,12 +40,13 @@ public class Item {
 
     private LocalDateTime registeredAt;
 
+    @CreatedDate
     private LocalDateTime createdAt;
-
+    @CreatedBy
     private String createdBy;
-
+    @LastModifiedDate
     private LocalDateTime updatedAt;
-
+    @LastModifiedBy
     private String updatedBy;
 
     // Item N : 1 Partner

@@ -36,8 +36,14 @@ public class UserRepositoryTest extends BackofficeApplicationTests { // 자동�
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setRegisteredAt(registerdAt);
-        user.setCreatedAt(createdAt);
-        user.setCreatedBy(createdBy);
+
+        User u = User.builder()
+                .account(account)
+                .password(password)
+                .status(status)
+                .email(email)
+                .build();
+
 
         User newUser = userRepository.save(user);
 
