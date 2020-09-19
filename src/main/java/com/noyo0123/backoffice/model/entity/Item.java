@@ -32,8 +32,6 @@ public class Item {
 
     private LocalDateTime registeredAt;
 
-    private String registeredBy;
-
     private LocalDateTime createdAt;
 
     private String createdBy;
@@ -41,6 +39,8 @@ public class Item {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
+
+    private Long partner_id;
 
     // 1: N 아이템입장에서 아이템이 1 주문내역이 N인 관계이니까!
 

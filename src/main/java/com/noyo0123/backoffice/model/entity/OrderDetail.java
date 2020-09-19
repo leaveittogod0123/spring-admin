@@ -20,8 +20,6 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime orderAt;
-
     private String status;
 
     private LocalDateTime arrivalDate;
@@ -38,13 +36,17 @@ public class OrderDetail {
 
     private String updatedBy;
 
+    private Long itemId;
+
+    private Long orderGroupId;
+
     // orderDetail 입장에서
     // orderDetail이 N, user가 1
-    @ManyToOne
-    private User user; // 이렇게 바뀝니다. Hibernate를 통한 연관관계 매핑시 반드시 객체! 매핑, hibernate가 알아서 user_id를 찾아감, 이제 User 클래스가서 관계 매칭
-    //    private Long userId; 연관관계 매핑전
-
-    @ManyToOne
-    private Item item;
+//    @ManyToOne
+//    private User user; // 이렇게 바뀝니다. Hibernate를 통한 연관관계 매핑시 반드시 객체! 매핑, hibernate가 알아서 user_id를 찾아감, 이제 User 클래스가서 관계 매칭
+//    //    private Long userId; 연관관계 매핑전
+//
+//    @ManyToOne
+//    private Item item;
 
 }
