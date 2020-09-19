@@ -38,7 +38,7 @@ public class PartnerRepositoryTest extends BackofficeApplicationTests {
         partner.setRegisteredAt(registerdAt);
         partner.setCreatedAt(createdAt);
         partner.setCreatedBy(createBy);
-        partner.setCategoryId(1L);
+//        partner.setCategoryId(1L);
 
         Partner newPartner = partnerRepository.save(partner);
 

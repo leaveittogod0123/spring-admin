@@ -26,7 +26,7 @@ public class ItemRepositoryTest extends BackofficeApplicationTests {
         item.setRegisteredAt(LocalDateTime.now());
         item.setCreatedAt(LocalDateTime.now());
         item.setCreatedBy("Partner01");
-        item.setPartner_id(1L);
+//        item.setPartner_id(1L); Long -> partner
 
         Item newItem = itemRepository.save(item);
         Assert.assertNotNull(newItem);

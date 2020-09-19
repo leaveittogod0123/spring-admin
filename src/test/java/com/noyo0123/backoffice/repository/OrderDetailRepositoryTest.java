@@ -27,7 +27,7 @@ public class OrderDetailRepositoryTest extends BackofficeApplicationTests {
         orderDetail.setCreatedBy("AdminServer");
 
 //        orderDetail.setOrderGroupId(1L);        //어떤 장바구니에 LONG -> OrderGroup
-        orderDetail.setItemId(1L);        //어떤 아이템을
+//        orderDetail.setItemId(1L);        //어떤 아이템을
 
 
 

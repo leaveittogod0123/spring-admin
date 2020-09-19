@@ -61,7 +61,13 @@ public class UserRepositoryTest extends BackofficeApplicationTests { // 자동�
             orderGroup.getOrderDetailList().forEach(orderDetail -> {
                 System.out.println(orderDetail.getStatus());
                 System.out.println(orderDetail.getArrivalDate());
+                System.out.println(orderDetail.getItem().getName());
+                System.out.println(orderDetail.getItem().getPartner().getCallCenter());
+                System.out.println(orderDetail.getItem().getPartner().getName());
+                System.out.println(orderDetail.getItem().getPartner().getCategory().getTitle());
             });
+
+
 
         });
         Assert.assertNotNull(user);
