@@ -36,8 +36,14 @@ public class UserRepositoryTest extends BackofficeApplicationTests { // 자동�
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setRegisteredAt(registerdAt);
-        user.setCreatedAt(createdAt);
-        user.setCreatedBy(createdBy);
+
+        User u = User.builder()
+                .account(account)
+                .password(password)
+                .status(status)
+                .email(email)
+                .build();
+
 
         User newUser = userRepository.save(user);
 
@@ -48,8 +54,28 @@ public class UserRepositoryTest extends BackofficeApplicationTests { // 자동�
     @Test
     @Transactional
     public void read() {
-        String phoneNumber = "010-1111-2221";
+        String phoneNumber = "010-1111-2222";
         User user = userRepository.findFirstByPhoneNumberOrderByIdDesc(phoneNumber);
+        user.getOrderGroup().stream().forEach(orderGroup -> {
+            System.out.println("-------------------주문 목록--------------------");
+            System.out.println(orderGroup.getRevName());
+            System.out.println(orderGroup.getRevAddress());
+            System.out.println(orderGroup.getTotalPrice());
+            System.out.println(orderGroup.getTotalQuantity());
+
+            System.out.println("-------------------주문 상세--------------------");
+            orderGroup.getOrderDetailList().forEach(orderDetail -> {
+                System.out.println(orderDetail.getStatus());
+                System.out.println(orderDetail.getArrivalDate());
+                System.out.println(orderDetail.getItem().getName());
+                System.out.println(orderDetail.getItem().getPartner().getCallCenter());
+                System.out.println(orderDetail.getItem().getPartner().getName());
+                System.out.println(orderDetail.getItem().getPartner().getCategory().getTitle());
+            });
+
+
+
+        });
         Assert.assertNotNull(user);
     }
 
