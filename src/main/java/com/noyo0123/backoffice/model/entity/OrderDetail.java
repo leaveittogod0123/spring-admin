@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-//@ToString(exclude = {"user","item"})
+@ToString(exclude = {"orderGroup"})
 @NoArgsConstructor
 @Entity // order_detail
 public class OrderDetail {
@@ -38,7 +38,8 @@ public class OrderDetail {
 
     private Long itemId;
 
-    private Long orderGroupId;
+    @ManyToOne
+    private OrderGroup orderGroup;
 
     // orderDetail 입장에서
     // orderDetail이 N, user가 1

@@ -8,12 +8,13 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@ToString(exclude = {"user"})
+@ToString(exclude = {"user", "orderDetailList"})
 public class OrderGroup {
 
     @Id
@@ -40,5 +41,8 @@ public class OrderGroup {
     // OrderGroup 입장에서 user는 연관관계가 N: 1이고, user 엔티티의 mappedBy에 설정된 변수명으로 써줘야함.
     @ManyToOne
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderGroup")
+    private List<OrderDetail> orderDetailList;
 
 }
