@@ -48,8 +48,14 @@ public class UserRepositoryTest extends BackofficeApplicationTests { // 자동�
     @Test
     @Transactional
     public void read() {
-        String phoneNumber = "010-1111-2221";
+        String phoneNumber = "010-1111-2222";
         User user = userRepository.findFirstByPhoneNumberOrderByIdDesc(phoneNumber);
+        user.getOrderGroup().stream().forEach(orderGroup -> {
+            System.out.println(orderGroup.getRevName());
+            System.out.println(orderGroup.getRevAddress());
+            System.out.println(orderGroup.getTotalPrice());
+            System.out.println(orderGroup.getTotalQuantity());
+        });
         Assert.assertNotNull(user);
     }
 

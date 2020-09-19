@@ -3,11 +3,9 @@ package com.noyo0123.backoffice.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -15,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity
+@ToString(exclude = {"user"})
 public class OrderGroup {
 
     @Id
@@ -38,6 +37,8 @@ public class OrderGroup {
 
     private String updatedBy;
 
-    private Long userId;
+    // OrderGroup 입장에서 user는 연관관계가 N: 1이고, user 엔티티의 mappedBy에 설정된 변수명으로 써줘야함.
+    @ManyToOne
+    private User user;
 
 }
