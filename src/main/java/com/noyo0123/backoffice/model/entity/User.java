@@ -38,6 +38,8 @@ public class User { // TBL의 이름과 동일하게
 
     private LocalDateTime registeredAt;
 
+    private LocalDateTime unregisteredAt;
+
     @CreatedDate
     private LocalDateTime createdAt;
     @CreatedBy
