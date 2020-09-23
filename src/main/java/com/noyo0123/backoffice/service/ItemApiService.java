@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class ItemApiService implements CrudInterface<ItemApiRequest, ItemApiResponse> {
@@ -43,7 +44,8 @@ public class ItemApiService implements CrudInterface<ItemApiRequest, ItemApiResp
 
     @Override
     public Header<ItemApiResponse> read(Long id) {
-        return null;
+        Optional<Item> optional = itemRepository.findById(id);
+        return optional.map(item -> response(item)).orElseGet(() -> Header.ERROR("상품이 없음"));
     }
 
     @Override
