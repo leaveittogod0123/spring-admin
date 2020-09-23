@@ -50,7 +50,23 @@ public class ItemApiService implements CrudInterface<ItemApiRequest, ItemApiResp
 
     @Override
     public Header<ItemApiResponse> update(Header<ItemApiRequest> req) {
-        return null;
+        ItemApiRequest itemApiRequest = req.getData();
+
+        return itemRepository.findById(itemApiRequest.getId())
+                .map(item -> {
+                    item.setName(itemApiRequest.getName())
+                            .setStatus(itemApiRequest.getStatus())
+                            .setTitle(itemApiRequest.getTitle())
+                            .setContent(itemApiRequest.getContent())
+                            .setPrice(itemApiRequest.getPrice())
+                            .setBrandName(itemApiRequest.getBrandName())
+                            .setRegisteredAt(itemApiRequest.getRegisteredAt())
+                            .setUnregisteredAt(itemApiRequest.getUnregisteredAt());
+                    return item;
+                })
+                .map(item -> itemRepository.save(item)) // save시 저장된 Entity가 반환됌
+                .map(item -> response(item))
+                .orElseGet(()-> Header.ERROR("상품 없음"));
     }
 
     @Override
