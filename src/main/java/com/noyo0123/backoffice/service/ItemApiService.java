@@ -71,7 +71,12 @@ public class ItemApiService implements CrudInterface<ItemApiRequest, ItemApiResp
 
     @Override
     public Header delete(Long id) {
-        return null;
+        return itemRepository.findById(id)
+                .map(item -> {
+                    itemRepository.delete(item);
+                    return Header.OK();
+                })
+                .orElseGet(()-> Header.ERROR("상품 없음"));
     }
 
     //response로 item 객체를 리턴하기 때문에 공통 메서드로 생성
