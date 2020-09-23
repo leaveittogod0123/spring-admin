@@ -56,12 +56,44 @@ public class UserApiService implements CrudInterface<UserApiRequest, UserApiResp
 
     @Override
     public Header<UserApiResponse> update(Header<UserApiRequest> request) {
-        return null;
+        // 1. data
+
+        UserApiRequest userApiRequest = request.getData();
+
+        // 2. id -> user 데이터를 찾고
+        Optional<User> optional = userRepository.findById(userApiRequest.getId());
+
+        return optional.map(user -> {
+            // 3. update
+            // Accessors(chain=true)
+            user.setAccount(userApiRequest.getAccount())
+                    .setPassword(userApiRequest.getPassword())
+                    .setStatus(userApiRequest.getStatus())
+                    .setPhoneNumber(userApiRequest.getPhoneNumber())
+                    .setEmail(userApiRequest.getEmail())
+                    .setRegisteredAt(userApiRequest.getRegisteredAt())
+                    .setUnregisteredAt(userApiRequest.getUnregisteredAt());
+            return user;
+            // 4. userApiResponse
+        }).map(user -> userRepository.save(user))           // update -> newUser
+                .map(user -> response(user))                // userApiResponse
+                .orElseGet(()->Header.ERROR("데이터없음"));
+
     }
 
     @Override
     public Header delete(Long id) {
-        return null;
+        // id -> repository -> user
+        Optional<User> optional = userRepository.findById(id); // 사용자가 없을 수도 있기 때문에 optional이 편함
+
+        // repository -> delete
+
+        return optional.map( user -> {
+            userRepository.delete(user);
+            return Header.OK();
+        }).orElseGet(() -> Header.ERROR("데이터없음")); // 없는 경우 에러처리
+
+        // response return
     }
 
     private Header<UserApiResponse> response (User user) {
