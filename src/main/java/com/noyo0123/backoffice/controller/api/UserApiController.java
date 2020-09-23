@@ -6,11 +6,13 @@ import com.noyo0123.backoffice.model.network.Header;
 import com.noyo0123.backoffice.model.network.request.UserApiRequest;
 import com.noyo0123.backoffice.model.network.response.UserApiResponse;
 import com.noyo0123.backoffice.service.UserApiService;
+import jdk.nashorn.internal.runtime.options.Option;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -36,9 +38,11 @@ public class UserApiController implements CrudInterface<UserApiRequest, UserApiR
     }
 
     @Override
-    @PutMapping("") // api/user
+    @PutMapping("{id}") // api/user
     public Header<UserApiResponse> update(@RequestBody Header<UserApiRequest> request) {
-        return null;
+
+        log.info("update request {}", request);
+        return userApiService.update(request);
     }
 
     @Override
