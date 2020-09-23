@@ -83,7 +83,17 @@ public class UserApiService implements CrudInterface<UserApiRequest, UserApiResp
 
     @Override
     public Header delete(Long id) {
-        return null;
+        // id -> repository -> user
+        Optional<User> optional = userRepository.findById(id); // 사용자가 없을 수도 있기 때문에 optional이 편함
+
+        // repository -> delete
+
+        return optional.map( user -> {
+            userRepository.delete(user);
+            return Header.OK();
+        }).orElseGet(() -> Header.ERROR("데이터없음")); // 없는 경우 에러처리
+
+        // response return
     }
 
     private Header<UserApiResponse> response (User user) {
