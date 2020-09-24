@@ -7,11 +7,15 @@ import com.noyo0123.backoffice.model.network.request.OrderGroupApiRequest;
 import com.noyo0123.backoffice.model.network.response.OrderGroupApiResponse;
 import com.noyo0123.backoffice.repository.OrderGroupRepository;
 import com.noyo0123.backoffice.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
+@Slf4j
 @Service
 public class OrderGroupApiService implements CrudInterface<OrderGroupApiRequest, OrderGroupApiResponse> {
 
@@ -46,8 +50,9 @@ public class OrderGroupApiService implements CrudInterface<OrderGroupApiRequest,
 
     @Override
     public Header<OrderGroupApiResponse> read(Long id) {
+
         return orderGroupRepository.findById(id)
-                .map(this:: response) // orderGroup -> response(orderGroup) ... orderGroup -> { return response(orderGroup) }
+                .map(this::response) // orderGroup -> response(orderGroup) ... orderGroup -> { return response(orderGroup) }
                 .orElseGet(() -> Header.ERROR("데이터 없음."));
     }
 
@@ -76,7 +81,12 @@ public class OrderGroupApiService implements CrudInterface<OrderGroupApiRequest,
 
     @Override
     public Header delete(Long id) {
-        return null;
+        return orderGroupRepository.findById(id)
+                .map(orderGroup -> {
+                    orderGroupRepository.delete(orderGroup);
+                    return Header.OK();
+                })
+                .orElseGet( ()-> Header.ERROR("데이터없음.")); // null일때만 불립니다.
     }
 
     // response의 형태가 Header<OrderGroupApiResponse>로 동일하게 구성되어있어서 공통메서드로 빼내는 작업 수행
