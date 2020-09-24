@@ -41,19 +41,37 @@ public class OrderGroupApiService implements CrudInterface<OrderGroupApiRequest,
                 .build();
 
         OrderGroup newOrderGroup = orderGroupRepository.save(orderGroup);
-        return resposne(newOrderGroup);
+        return response(newOrderGroup);
     }
 
     @Override
     public Header<OrderGroupApiResponse> read(Long id) {
         return orderGroupRepository.findById(id)
-                .map(this::resposne) // orderGroup -> response(orderGroup) ... orderGroup -> { return response(orderGroup) }
+                .map(this:: response) // orderGroup -> response(orderGroup) ... orderGroup -> { return response(orderGroup) }
                 .orElseGet(() -> Header.ERROR("데이터 없음."));
     }
 
     @Override
     public Header<OrderGroupApiResponse> update(Header<OrderGroupApiRequest> req) {
-        return null;
+        OrderGroupApiRequest body = req.getData();
+
+        return orderGroupRepository.findById(body.getId())
+                .map(orderGroup -> {
+                    orderGroup.setStatus(body.getStatus())
+                            .setOrderType(body.getOrderType())
+                            .setRevAddress(body.getRevAddress())
+                            .setRevName(body.getRevName())
+                            .setPaymentType(body.getPaymentType())
+                            .setTotalPrice(body.getTotalPrice())
+                            .setTotalQuantity(body.getTotalQuantity())
+                            .setOrderAt(body.getOrderAt())
+                            .setArrivalDate(body.getArrivalDate())
+                            .setUser(userRepository.getOne(body.getUserId()));
+                    return orderGroup;
+                }) // 데이터 있는경우
+                .map(changeOrderGroup -> orderGroupRepository.save(changeOrderGroup))
+                .map(newOrderGroup -> response(newOrderGroup))
+                .orElseGet( () -> Header.ERROR("데이터 없음")); // 없는경우
     }
 
     @Override
@@ -63,7 +81,7 @@ public class OrderGroupApiService implements CrudInterface<OrderGroupApiRequest,
 
     // response의 형태가 Header<OrderGroupApiResponse>로 동일하게 구성되어있어서 공통메서드로 빼내는 작업 수행
 
-    public Header<OrderGroupApiResponse> resposne(OrderGroup orderGroup) {
+    public Header<OrderGroupApiResponse> response(OrderGroup orderGroup) {
         OrderGroupApiResponse body = OrderGroupApiResponse.builder()
                 .id(orderGroup.getId())
                 .status(orderGroup.getStatus())
