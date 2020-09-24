@@ -1,5 +1,6 @@
 package com.noyo0123.backoffice.model.network.response;
 
+import com.noyo0123.backoffice.model.enumClass.ItemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class ItemApiResponse {
     private Long id;
 
     // 상품 상태
-    private String status;
+    private ItemStatus status;
 
     // 이름
     private String name;

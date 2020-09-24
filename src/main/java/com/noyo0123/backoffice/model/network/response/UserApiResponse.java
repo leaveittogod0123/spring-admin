@@ -1,5 +1,6 @@
 package com.noyo0123.backoffice.model.network.response;
 
+import com.noyo0123.backoffice.model.enumClass.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +20,7 @@ public class UserApiResponse {
 
     private String password;
 
-    private String status;
+    private UserStatus status;
 
     private String email;
 

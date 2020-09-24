@@ -1,5 +1,6 @@
 package com.noyo0123.backoffice.model.entity;
 
+import com.noyo0123.backoffice.model.enumClass.UserStatus;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -30,7 +31,8 @@ public class User { // TBL의 이름과 동일하게
 
     private String password;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
     private String email;
 

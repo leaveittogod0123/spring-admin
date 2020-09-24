@@ -1,5 +1,7 @@
 package com.noyo0123.backoffice.model.entity;
 
+import com.noyo0123.backoffice.model.enumClass.ItemStatus;
+import com.noyo0123.backoffice.model.enumClass.UserStatus;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
@@ -33,7 +35,8 @@ public class Item {
 
     private String content;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ItemStatus status;
 
     private String title;
 
