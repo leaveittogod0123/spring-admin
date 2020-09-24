@@ -1,5 +1,6 @@
 package com.noyo0123.backoffice.model.network.request;
 
+import com.noyo0123.backoffice.model.enumClass.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class OrderGroupApiRequest {
 
     private String status;
 
-    private String orderType;
+    private OrderType orderType;
 
     private String revAddress;
 

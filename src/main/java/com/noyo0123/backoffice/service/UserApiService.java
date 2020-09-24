@@ -2,6 +2,7 @@ package com.noyo0123.backoffice.service;
 
 import com.noyo0123.backoffice.controller.ifs.CrudInterface;
 import com.noyo0123.backoffice.model.entity.User;
+import com.noyo0123.backoffice.model.enumClass.UserStatus;
 import com.noyo0123.backoffice.model.network.Header;
 import com.noyo0123.backoffice.model.network.request.UserApiRequest;
 import com.noyo0123.backoffice.model.network.response.UserApiResponse;
@@ -31,7 +32,7 @@ public class UserApiService implements CrudInterface<UserApiRequest, UserApiResp
         User user = User.builder()
                 .account(userApiRequest.getAccount())
                 .password(userApiRequest.getPassword())
-                .status("REGISTERED") // 후에 enum으로
+                .status(UserStatus.REGISTERED) // 후에 enum으로
                 .phoneNumber(userApiRequest.getPhoneNumber())
                 .email(userApiRequest.getEmail())
                 .registeredAt(LocalDateTime.now())
